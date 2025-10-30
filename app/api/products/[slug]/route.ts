@@ -1,7 +1,10 @@
 import { deleteProductById, getProductById } from "@/actions";
 import { NextResponse } from "next/server";
 
-export async function GET({ params }: { params: Promise<{ slug: string }> }) {
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ slug: string }> }
+) {
   try {
     const { slug } = await params;
     const product = await getProductById(slug);
@@ -20,11 +23,14 @@ export async function GET({ params }: { params: Promise<{ slug: string }> }) {
   }
 }
 
-export async function DELETE({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export async function DELETE(
+  request: Request,
+  {
+    params,
+  }: {
+    params: Promise<{ slug: string }>;
+  }
+) {
   try {
     const { slug } = await params;
     const deletedProduct = await deleteProductById(slug);
