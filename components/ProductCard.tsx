@@ -10,15 +10,13 @@ export const ProductCard = ({ product }: { product: Product }) => {
       className="flex h-full cursor-pointer flex-col overflow-hidden border-0 shadow-sm transition-shadow hover:shadow-md"
     >
       <Link href={`/products/${product._id}`}>
-        <div className="relative w-full overflow-hidden bg-gray-100">
-          <div className="flex h-full w-full items-center justify-center">
-            <Image
-              src={product.productImages[0]}
-              alt={product.name}
-              width={1000}
-              height={1365}
-            />
-          </div>
+        <div className="flex w-full items-center justify-center">
+          <Image
+            src={product.productImages[0]}
+            alt={product.name}
+            width={1000}
+            height={1365}
+          />
         </div>
       </Link>
       <CardContent className="flex flex-1 flex-col p-4">
