@@ -31,10 +31,10 @@ export const Menu = ({
 
             <div className="mt-6">
               <div className="space-y-4">
-                <Button className="w-full">
+                <Button className="w-full" asChild>
                   <Link href="/dashboard">Continue to dashboard</Link>
                 </Button>
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full" asChild>
                   <Link href="/admin">Continue to admin panel</Link>
                 </Button>
               </div>
