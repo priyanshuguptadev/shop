@@ -27,6 +27,21 @@ export const getAllProducts = async () => {
     throw error;
   }
 };
+export const updateProductById = async (id: string, data: any) => {
+  try {
+    await connectDB();
+    const product = await Product.findByIdAndUpdate(id, data, {
+      new: true,
+    });
+    if (!product) {
+      throw new Error("Product not found");
+    }
+    return JSON.parse(JSON.stringify(product));
+  } catch (error) {
+    console.error("Error updating product by ID:", error);
+    throw error;
+  }
+};
 
 export const deleteProductById = async (id: string) => {
   try {
