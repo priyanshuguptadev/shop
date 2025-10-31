@@ -5,8 +5,8 @@ import { getAllProducts } from "@/actions";
 import Link from "next/link";
 import Image from "next/image";
 import { DeleteProductBtn } from "@/components/DeleteProductBtn";
-import { SignOutButton } from "@clerk/nextjs";
 import type { Metadata } from "next";
+import { LogOutBtn } from "@/components/LogoutBtn";
 
 export const metadata: Metadata = {
   title: "Dashboard - Admin Panel",
@@ -34,7 +34,7 @@ export default async function Dashboard() {
                   Admin
                 </Link>
               </Button>
-              <SignOutButton children={<LogOut className="h-4 w-4" />} />
+              <LogOutBtn />
             </div>
           </div>
           <div className="flex md:hidden items-center bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
