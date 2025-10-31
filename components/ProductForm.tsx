@@ -255,9 +255,14 @@ export const ProductForm = () => {
             <h4 className="font-medium mb-2">Preview Notes</h4>
             <ul className="text-sm text-gray-600 space-y-1">
               <li>
-                • Product image will appear on the left. Use this image url
-                https://ik.imagekit.io/tasveer/ecommerce/product-3.jpg for
-                testing.
+                • <span>Product image will appear on the left. Use this </span>
+                <Link
+                  className="text-blue-600 underline font-bold"
+                  href="https://ik.imagekit.io/tasveer/ecommerce/product-3.jpg"
+                >
+                  image url
+                </Link>
+                <span> for testing.</span>
               </li>
               <li>• Product details update in real-time as you type</li>
             </ul>

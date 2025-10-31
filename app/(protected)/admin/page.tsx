@@ -1,6 +1,12 @@
 import { ProductForm } from "@/components/ProductForm";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, InfoIcon } from "lucide-react";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Add Product - Admin Panel",
+  description: "Add a new product to the inventory",
+};
 
 export default function Page() {
   return (
@@ -14,11 +20,21 @@ export default function Page() {
                 Dashboard
               </button>
             </Link>
-            <h1 className="text-xl font-medium tracking-tight">Add Product</h1>
+            <h1 className="text-xl font-medium tracking-tight hidden md:block">
+              Add Product
+            </h1>
           </div>
-          <div className="text-sm text-gray-500">Admin Panel</div>
+          <div className="text-sm text-gray-500 hidden md:block">
+            Admin Panel
+          </div>
         </div>
       </header>
+      <div className="max-w-md mx-4 flex md:hidden items-center bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+        <InfoIcon className="inline-block h-5 w-5 text-gray-400 mr-2" />
+        <p className="text-sm text-gray-500">
+          We recommend using desktop mode for the best experience
+        </p>
+      </div>
 
       <main className="mx-auto max-w-7xl px-4 py-8">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
