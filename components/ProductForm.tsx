@@ -10,6 +10,7 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 
 import { productSchema, ProductFormData } from "@/lib/zodSchema";
+import { Copy, LucideCopy } from "lucide-react";
 
 export const ProductForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -202,7 +203,27 @@ export const ProductForm = () => {
         </form>
       </div>
       <div className="lg:sticky lg:top-24 lg:self-start">
-        <div className="rounded-lg border border-gray-200 p-6">
+        <div className="mt-6 rounded-lg bg-gray-50 p-4">
+          <h4 className="font-medium mb-2">Preview Notes</h4>
+          <ul className="text-sm text-gray-600 space-y-1">
+            <li>
+              • <span>Product image will appear on the left. Use this </span>
+              <span
+                className="bg-white rounded-sm p-1 cursor-pointer border border-gray-300 hover:bg-gray-100"
+                onClick={() =>
+                  navigator.clipboard.writeText(
+                    "https://ik.imagekit.io/tasveer/ecommerce/product-3.jpg"
+                  )
+                }
+              >
+                <LucideCopy className="inline-block h-4 w-4" /> URL
+              </span>
+              <span> for testing.</span>
+            </li>
+            <li>• Product details update in real-time as you type</li>
+          </ul>
+        </div>
+        <div className="rounded-lg border border-gray-200 p-6 mt-4">
           <h3 className="mb-4 text-lg font-medium">Product Preview</h3>
 
           <div className="rounded-lg border border-gray-100 p-6">
@@ -249,23 +270,6 @@ export const ProductForm = () => {
                 )}
               </div>
             </div>
-          </div>
-
-          <div className="mt-6 rounded-lg bg-gray-50 p-4">
-            <h4 className="font-medium mb-2">Preview Notes</h4>
-            <ul className="text-sm text-gray-600 space-y-1">
-              <li>
-                • <span>Product image will appear on the left. Use this </span>
-                <Link
-                  className="text-blue-600 underline font-bold"
-                  href="https://ik.imagekit.io/tasveer/ecommerce/product-3.jpg"
-                >
-                  image url
-                </Link>
-                <span> for testing.</span>
-              </li>
-              <li>• Product details update in real-time as you type</li>
-            </ul>
           </div>
         </div>
       </div>

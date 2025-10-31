@@ -3,8 +3,15 @@ import { Trash2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { deleteProductById } from "@/actions";
 import { ConfirmDialog } from "./ConfirmDialog";
+import { useState } from "react";
 
 export const DeleteProductBtn = ({ id }: { id: string }) => {
+  const [loading, setLoading] = useState(false);
+  const handleDelete = async () => {
+    setLoading(true);
+    await deleteProductById(id);
+    window.location.reload();
+  };
   return (
     <ConfirmDialog
       trigger={
@@ -20,8 +27,8 @@ export const DeleteProductBtn = ({ id }: { id: string }) => {
       title="Confirm Delete"
       description="Are you sure you want to delete this product?"
       confirmBtn={
-        <Button variant="destructive" onClick={() => deleteProductById(id)}>
-          Confirm
+        <Button variant="destructive" onClick={handleDelete} disabled={loading}>
+          {loading ? "Deleting..." : "Delete"}
         </Button>
       }
     />

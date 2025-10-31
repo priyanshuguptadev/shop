@@ -8,6 +8,8 @@ import { DeleteProductBtn } from "@/components/DeleteProductBtn";
 import type { Metadata } from "next";
 import { LogOutBtn } from "@/components/LogoutBtn";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Dashboard - Admin Panel",
   description: "Manage your products and inventory",
