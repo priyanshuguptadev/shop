@@ -1,51 +1,67 @@
 import { create } from "zustand";
-import { Product } from "@/types";
 import { CartItem } from "@/types";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 interface CartState {
-  cart: CartItem[];
-  addToCart: (product: Product) => void;
-  removeFromCart: (productId: string) => void;
+  cartItems: CartItem[];
+  addItemToCart: (item: CartItem) => void;
+  increaseQuantity: (productId: string) => void;
+  decreaseQuantity: (productId: string) => void;
   clearCart: () => void;
 }
 
-export const useCartStore = create<CartState>((set) => ({
-  cart: [],
-  addToCart: (product) =>
-    set((state) => {
-      const existing = state.cart.find((item) => item._id === product._id);
-      if (existing) {
-        return {
-          cart: state.cart.map((item) =>
-            item._id === product._id
-              ? { ...item, quantity: (item.quantity ?? 0) + 1 }
-              : item
-          ),
-        };
-      }
-      return { cart: [...state.cart, { ...product, quantity: 1 }] };
-    }),
-  removeFromCart: (productId) =>
-    set((state) => {
-      const existing = state.cart.find((item) => item._id === productId);
-      if (existing && existing.quantity > 1) {
-        return {
-          cart: state.cart.map((item) =>
-            item._id === productId
-              ? { ...item, quantity: item.quantity - 1 }
-              : item
-          ),
-        };
-      }
-      return { cart: state.cart.filter((item) => item._id !== productId) };
-    }),
-  clearCart: () => set({ cart: [] }),
-}));
+export const useCartStore = create<CartState>()(
+  persist(
+    (set, get) => ({
+      cartItems: [],
 
-export const addToCart = (product: Product) => {
-  useCartStore.getState().addToCart(product);
-};
+      addItemToCart: (item) => {
+        const itemExists = get().cartItems.find(
+          (cartItem) => cartItem._id === item._id
+        );
 
-export const removeFromCart = (productId: string) => {
-  useCartStore.getState().removeFromCart(productId);
-};
+        if (itemExists) {
+          itemExists.quantity++;
+          set({ cartItems: [...get().cartItems] });
+        } else {
+          set({ cartItems: [...get().cartItems, { ...item, quantity: 1 }] });
+        }
+      },
+
+      increaseQuantity: (productId) => {
+        const itemExists = get().cartItems.find(
+          (cartItem) => cartItem._id === productId
+        );
+
+        if (itemExists) {
+          itemExists.quantity++;
+          set({ cartItems: [...get().cartItems] });
+        }
+      },
+
+      decreaseQuantity: (productId) => {
+        const itemExists = get().cartItems.find(
+          (cartItem) => cartItem._id === productId
+        );
+
+        if (itemExists) {
+          if (itemExists.quantity === 1) {
+            const updatedCartItems = get().cartItems.filter(
+              (item) => item._id !== productId
+            );
+            set({ cartItems: updatedCartItems });
+          } else {
+            itemExists.quantity--;
+            set({ cartItems: [...get().cartItems] });
+          }
+        }
+      },
+
+      clearCart: () => set({ cartItems: [] }),
+    }),
+    {
+      name: "cart-storage",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);

@@ -1,23 +1,19 @@
 "use client";
-import { addToCart } from "@/store/cart";
+import { useCartStore } from "@/store/cart";
 import { Button } from "./ui/button";
 import { Product } from "@/types";
-import { ShoppingBag } from "lucide-react";
-import { useState } from "react";
 
 const AddToBag = ({ product }: { product: Product }) => {
-  const [isClicked, setIsClicked] = useState(false);
+  const addToCart = useCartStore((state) => state.addItemToCart);
   return (
     <Button
       size="sm"
       className="bg-black px-3 py-1 text-xs hover:bg-gray-800"
       onClick={() => {
-        addToCart(product);
-        setIsClicked(true);
+        addToCart({ ...product, quantity: product.inventoryCount > 0 ? 1 : 0 });
       }}
     >
-      {isClicked ? "Added!" : "Add to Bag"}{" "}
-      <ShoppingBag className="ml-2 h-4 w-4" />
+      Add to Bag
     </Button>
   );
 };

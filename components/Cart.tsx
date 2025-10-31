@@ -1,7 +1,10 @@
+"use client";
+
 import { X, Plus, Minus } from "lucide-react";
 import { Button } from "./ui/button";
 import { CartItem } from "@/types";
 import Image from "next/image";
+import { useCartStore } from "@/store/cart";
 
 export const Cart = ({
   cart,
@@ -10,6 +13,8 @@ export const Cart = ({
   cart: CartItem[];
   setIsCartOpen: (open: boolean) => void;
 }) => {
+  const { increaseQuantity, decreaseQuantity, clearCart } = useCartStore();
+  useCartStore();
   return (
     <div className="fixed inset-0 z-50 overflow-hidden">
       <div
@@ -49,6 +54,7 @@ export const Cart = ({
                     </div>
                     <div className="flex items-center gap-2">
                       <button
+                        onClick={() => decreaseQuantity(item._id)}
                         className="rounded p-1 hover:bg-gray-100"
                         aria-label="Decrease quantity"
                       >
@@ -56,6 +62,7 @@ export const Cart = ({
                       </button>
                       <span className="w-8 text-center">{item.quantity}</span>
                       <button
+                        onClick={() => increaseQuantity(item._id)}
                         className="rounded p-1 hover:bg-gray-100"
                         aria-label="Increase quantity"
                       >
@@ -81,6 +88,12 @@ export const Cart = ({
                 </div>
                 <Button className="mt-6 w-full bg-black py-6 hover:bg-gray-800">
                   Checkout
+                </Button>
+                <Button
+                  onClick={clearCart}
+                  className="mt-6 w-full py-6 bg-gray-200 hover:bg-gray-300 text-black"
+                >
+                  Clear Cart
                 </Button>
               </div>
             </>

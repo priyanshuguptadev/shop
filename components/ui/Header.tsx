@@ -13,8 +13,9 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const { cart } = useCartStore();
+  const cart = useCartStore((state) => state.cartItems);
   const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0);
+
   return (
     <>
       <header className="sticky top-0 z-20 border-b border-gray-100 bg-white/80 backdrop-blur-sm">
