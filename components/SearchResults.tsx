@@ -21,14 +21,14 @@ export const SearchResults = ({ searchTerm }: { searchTerm: string }) => {
           product.name.toLowerCase().includes(searchTerm.toLowerCase())
         )
         .map((product) => (
-          <Link
+          <a
             key={product._id}
             href={`/products/${product._id}`}
             className="max-w-md mx-auto flex items-center w-full text-gray-500 hover:text-gray-600 cursor-pointer"
           >
             <SearchIcon className="inline-block mr-2 mb-1" />
             <h2 className="text-md w-full text-start">{product.name}</h2>
-          </Link>
+          </a>
         ))}
     </div>
   );
